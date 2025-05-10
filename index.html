@@ -4,76 +4,164 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>HvH.fun Panel</title>
-  <link rel="stylesheet" href="style.css" />
+  <style>
+    :root {
+      --bg-color: #131313;
+      --card-color: #212121;
+      --accent-color: #58a6ff;
+      --error-color: #f85149;
+      --text-color: #ffffff;
+      --border-radius: 12px;
+      --transition-speed: 0.4s;
+      --hover-scale: 1.05;
+      --box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.7);
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: linear-gradient(135deg, rgba(40, 44, 52, 1) 0%, rgba(0, 0, 0, 1) 100%);
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 480px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      background-color: var(--card-color);
+      padding: 20px;
+      transition: transform var(--transition-speed);
+      transform: scale(1.05);
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 28px;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 15px;
+      background-color: var(--accent-color);
+      color: var(--text-color);
+      border: none;
+      border-radius: var(--border-radius);
+      font-size: 16px;
+      box-sizing: border-box;
+      transition: background-color var(--transition-speed), transform var(--transition-speed);
+    }
+
+    button:focus, button:hover {
+      background-color: #4096e0;
+      transform: scale(var(--hover-scale));
+    }
+
+    .error {
+      color: var(--error-color);
+      text-align: center;
+      font-size: 14px;
+      display: none;
+    }
+
+    .quote {
+      font-size: 20px;
+      color: var(--accent-color);
+      text-align: center;
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+
+    .panel button {
+      margin-top: 10px;
+    }
+
+    /* O nás sekce */
+    .about-us-section {
+      background-color: #212121;
+      padding: 20px;
+      width: 100%;
+      max-width: 480px;
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .about-us-section h3 {
+      font-size: 24px;
+      margin-bottom: 15px;
+      font-weight: 600;
+    }
+
+    .about-us-section p {
+      font-size: 16px;
+      color: #bbb;
+      margin: 15px 0;
+    }
+
+    .about-us-section img {
+      display: block;
+      margin: 0 auto 20px;
+      border-radius: 10px;
+      max-width: 100%;
+      height: auto;
+    }
+
+    /* Citát místo "Zbývá X dní" */
+    .quote {
+      font-size: 18px;
+      color: var(--accent-color);
+      text-align: center;
+      font-style: italic;
+      margin-bottom: 1rem;
+    }
+
+    @media screen and (max-width: 500px) {
+      .container {
+        width: 90%;
+      }
+    }
+  </style>
 </head>
 <body>
-
-  <div class="tabs">
-    <button class="tab-btn active" onclick="showTab('registerBox')">Registrace</button>
-    <button class="tab-btn" onclick="showTab('panelBox')">Panel</button>
-    <button class="tab-btn" onclick="showTab('inviteBox')">Invites</button>
-    <button class="tab-btn" onclick="showTab('aboutBox')">O nás</button>
-  </div>
-
-  <!-- REGISTRACE -->
-  <div class="container active" id="registerBox">
-    <h2>Registrace</h2>
-    <p>Pro přístup do panelu musíte zadat svůj invite kód.</p>
-    <input type="text" id="inviteCodeInput" placeholder="Zadejte Invite kód" />
-    <button onclick="register()">Registrovat</button>
-    <p id="registerError" style="color: var(--error-color); display: none; text-align: center;">Neplatný Invite kód!</p>
-  </div>
-
-  <!-- PANEL -->
-  <div class="container" id="panelBox">
-    <h2>HvH.fun Panel</h2>
-    <p class="quote">"Hraj fér, ale hraj chytře."</p>
-    <button onclick="downloadLoader('primordial')">Stáhnout Primordial</button>
-    <button onclick="downloadLoader('fatality')">Stáhnout Fatality</button>
-    <button onclick="downloadLoader('gamesense')">Stáhnout Gamesense</button>
-    <button onclick="downloadLoader('evolve')">Stáhnout Evolve</button>
-    <button onclick="resetHWID()">Resetovat HWID</button>
-  </div>
-
-  <!-- INVITES -->
-  <div class="container" id="inviteBox">
-    <h2>Invites</h2>
-    <button onclick="generateInvite()">Generovat Invite</button>
-    <p id="inviteOutput" class="quote"></p>
-    <div id="inviteListSection">
-      <h3>Již generované invite</h3>
-      <ul id="inviteList"></ul>
+  <div class="container">
+    <!-- HvH.fun Panel -->
+    <div class="panel" id="panelBox">
+      <h2>HvH.fun Panel</h2>
+      <p class="quote" id="quoteDisplay">"Hraj fér, ale hraj chytře."</p>
+      <button onclick="downloadLoader('primordial')">Stáhnout Primordial</button>
+      <button onclick="downloadLoader('fatality')">Stáhnout Fatality</button>
+      <button onclick="downloadLoader('gamesense')">Stáhnout Gamesense</button>
+      <button onclick="downloadLoader('evolve')">Stáhnout Evolve</button>
+      <button onclick="resetHWID()">Resetovat HWID</button>
     </div>
   </div>
 
-  <!-- ABOUT -->
-  <div class="container" id="aboutBox">
-    <h2>O nás</h2>
+  <!-- O nás sekce -->
+  <div class="about-us-section">
+    <h3>O nás</h3>
     <img src="https://i.imgur.com/G9I2a62.png" alt="HvH.fun Logo" />
     <p>Jsme <strong>HvH.fun</strong>, váš spolehlivý zdroj pro <strong>cheaty do CS:GO</strong>. Naší misí je poskytovat kvalitní a bezpečné nástroje pro hráče, kteří se chtějí zlepšit a vyzkoušet něco nového. Naše stránka nabízí širokou škálu cheatů, které si můžete stáhnout a použít ve své hře, abyste získali výhodu. Bezpečnost a diskrétnost jsou pro nás na prvním místě. Rádi vám poskytujeme nástroje, které vám pomohou vylepšit vaše herní dovednosti.</p>
     <p>Připojte se k nám a objevte nový svět herních cheatů!</p>
   </div>
 
-  <!-- Oznámení -->
-  <div class="notification" id="notification">Můžete vytvořit maximálně 2 pozvánky!</div>
-
   <script>
-    const inviteCodes = [];
-    const validInvites = [];
-
-    function showTab(tabId) {
-      const tabs = document.querySelectorAll('.container');
-      const buttons = document.querySelectorAll('.tab-btn');
-      tabs.forEach(tab => tab.classList.remove('active'));
-      buttons.forEach(btn => btn.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
-      event.target.classList.add('active');
-    }
-
+    // Funkce pro generování unikátního UID podle počtu uživatelů
     function generateUID() {
-      return Math.floor(Math.random() * 1000000);
+      return Math.floor(Math.random() * 1000000); // Generuje náhodné UID
     }
 
+    // Funkce pro stáhnutí cheatu
     function downloadLoader(type) {
       let url = '';
       switch(type) {
@@ -93,38 +181,9 @@
       window.open(url, '_blank');
     }
 
+    // Funkce pro resetování HWID
     function resetHWID() {
       alert('HWID resetován!');
-    }
-
-    function register() {
-      const inviteCode = document.getElementById('inviteCodeInput').value.trim();
-      if (validInvites.includes(inviteCode)) {
-        document.getElementById('registerBox').classList.remove('active');
-        document.getElementById('panelBox').classList.add('active');
-      } else {
-        document.getElementById('registerError').style.display = 'block';
-      }
-    }
-
-    function generateInvite() {
-      if (inviteCodes.length >= 2) {
-        document.getElementById('notification').classList.add('show');
-        setTimeout(() => {
-          document.getElementById('notification').classList.remove('show');
-        }, 3000);
-        return;
-      }
-
-      const newInvite = generateUID();
-      inviteCodes.push(newInvite);
-      validInvites.push(newInvite);
-
-      const inviteList = document.getElementById('inviteList');
-      const li = document.createElement('li');
-      li.textContent = newInvite;
-      inviteList.appendChild(li);
-      document.getElementById('inviteOutput').textContent = `Vygenerován invite: ${newInvite}`;
     }
   </script>
 </body>
