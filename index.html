@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -85,7 +85,7 @@
       margin-top: 10px;
     }
 
-    /* O nás sekce */
+    /* About Us section */
     .about-us-section {
       background-color: #212121;
       padding: 20px;
@@ -117,7 +117,7 @@
       height: auto;
     }
 
-    /* Citát místo "Zbývá X dní" */
+    /* Quote instead of "X days left" */
     .quote {
       font-size: 18px;
       color: var(--accent-color);
@@ -138,30 +138,29 @@
     <!-- HvH.fun Panel -->
     <div class="panel" id="panelBox">
       <h2>HvH.fun Panel</h2>
-      <p class="quote" id="quoteDisplay">"Hraj fér, ale hraj chytře."</p>
-      <button onclick="downloadLoader('primordial')">Stáhnout Primordial</button>
-      <button onclick="downloadLoader('fatality')">Stáhnout Fatality</button>
-      <button onclick="downloadLoader('gamesense')">Stáhnout Gamesense</button>
-      <button onclick="downloadLoader('evolve')">Stáhnout Evolve</button>
-      <button onclick="resetHWID()">Resetovat HWID</button>
+      <p class="quote" id="quoteDisplay">"Play fair, but play smart."</p>
+      <button onclick="downloadLoader('primordial')">Download Primordial</button>
+      <button onclick="downloadLoader('fatality')">Download Fatality</button>
+      <button onclick="downloadLoader('gamesense')">Download Gamesense</button>
+      <button onclick="downloadLoader('evolve')">Download Evolve</button>
     </div>
   </div>
 
-  <!-- O nás sekce -->
+  <!-- About Us section -->
   <div class="about-us-section">
-    <h3>O nás</h3>
+    <h3>About Us</h3>
     <img src="https://i.imgur.com/G9I2a62.png" alt="HvH.fun Logo" />
-    <p>Jsme <strong>HvH.fun</strong>, váš spolehlivý zdroj pro <strong>cheaty do CS:GO</strong>. Naší misí je poskytovat kvalitní a bezpečné nástroje pro hráče, kteří se chtějí zlepšit a vyzkoušet něco nového. Naše stránka nabízí širokou škálu cheatů, které si můžete stáhnout a použít ve své hře, abyste získali výhodu. Bezpečnost a diskrétnost jsou pro nás na prvním místě. Rádi vám poskytujeme nástroje, které vám pomohou vylepšit vaše herní dovednosti.</p>
-    <p>Připojte se k nám a objevte nový svět herních cheatů!</p>
+    <p>We are <strong>HvH.fun</strong>, your reliable source for <strong>CS:GO cheats</strong>. Our mission is to provide high-quality and safe tools for players who want to improve and try something new. Our site offers a wide range of cheats that you can download and use in your game to gain an edge. Security and discretion are our top priorities. We aim to provide you with tools that help improve your gaming skills.</p>
+    <p>Join us and discover a new world of game cheats!</p>
   </div>
 
   <script>
-    // Funkce pro generování unikátního UID podle počtu uživatelů
+    // Function to generate a random UID based on user count
     function generateUID() {
-      return Math.floor(Math.random() * 1000000); // Generuje náhodné UID
+      return Math.floor(Math.random() * 1000000); // Generates a random UID
     }
 
-    // Funkce pro stáhnutí cheatu
+    // Function to download cheat
     function downloadLoader(type) {
       let url = '';
       switch(type) {
@@ -179,11 +178,6 @@
           break;
       }
       window.open(url, '_blank');
-    }
-
-    // Funkce pro resetování HWID
-    function resetHWID() {
-      alert('HWID resetován!');
     }
   </script>
 </body>
